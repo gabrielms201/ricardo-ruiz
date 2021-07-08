@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cadastro.WebAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace Cadastro.WebAPI
 {
@@ -31,6 +32,10 @@ namespace Cadastro.WebAPI
 			string mySqlConnection = Configuration.GetConnectionString("UserContext");
 			services.AddDbContextPool<UserContext>(options => options.UseSqlServer(Configuration.GetConnectionString("UserContext")));
 			services.AddControllers();
+			services.AddSwaggerGen(c =>
+			{
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "Cadastro.WebAPI", Version = "v1" });
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +44,8 @@ namespace Cadastro.WebAPI
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
+				app.UseSwagger();
+				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cadastro.WebAPI v1"));
 			}
 
 			app.UseHttpsRedirection();
