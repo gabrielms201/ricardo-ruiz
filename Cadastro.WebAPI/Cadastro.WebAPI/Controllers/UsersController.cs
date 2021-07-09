@@ -48,13 +48,14 @@ namespace Cadastro.WebAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(string id, User user)
         {
+            user.SetId(id);
+            //_context.Find //ver documentacao db context
             if (id != user.Id)
             {
                 return BadRequest();
             }
 
             _context.Entry(user).State = EntityState.Modified;
-
             try
             {
                 await _context.SaveChangesAsync();
