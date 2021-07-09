@@ -9,7 +9,7 @@ namespace Cadastro.WebAPI.Models
 {
 	public class User
 	{
-		
+
 		[Key]
 		public string Id { get; private set; }
 		[Required(ErrorMessage = "Esse campo é obrigatório!")]
@@ -22,7 +22,6 @@ namespace Cadastro.WebAPI.Models
 		public User()
 		{
 			Id = GenerateUserId();
-			CreationDate = DateTime.Now;
 		}
 		
 		public static string GenerateUserId()
@@ -33,6 +32,10 @@ namespace Cadastro.WebAPI.Models
 		public void SetId(string id)
 		{
 			Id = id;
+		}
+		public void SetDate(DateTime date)
+		{
+			CreationDate = date;
 		}
 
 	}
