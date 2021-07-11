@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Cadastro.WebAPI.Data;
 using Cadastro.WebAPI.Models;
@@ -15,16 +16,19 @@ namespace Cadastro.WebAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserContext _context;
+        private readonly ILogger _logger; 
 
-        public UsersController(UserContext context)
+        public UsersController(UserContext context, ILogger<UsersController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: api/Users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
+            _logger.LogInformation(MyLogEvents.ListItems, $"{DateTime.Now} - Utilizado get em todos os usuários");
             return await _context.Users.ToListAsync();
         }
 
@@ -32,10 +36,13 @@ namespace Cadastro.WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(string id)
         {
+            _logger.LogInformation(MyLogEvents.GetItem, $"{DateTime.Now} - Utilizado get no usuário de id: {id}.");
             var user = await _context.Users.FindAsync(id);
 
             if (user == null)
+            
             {
+                _logger.LogWarning(MyLogEvents.GetItemNotFound, $"{DateTime.Now} - [ERRO] Tentativa de Get: Usuário de id {id} não encontrado.");
                 return NotFound();
             }
 
@@ -55,12 +62,14 @@ namespace Cadastro.WebAPI.Controllers
             _context.Entry(user).State = EntityState.Modified;
             try
             {
+                _logger.LogInformation(MyLogEvents.UpdateItem, $"{DateTime.Now} - Modificado o usuário de id: {id}.");
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
                 if (!UserExists(id))
                 {
+                    _logger.LogWarning(MyLogEvents.UpdateItemNotFound, $"{DateTime.Now} - [ERRO] Tentativa de Update: Usuário de id {id} não encontrado.");
                     return NotFound();
                 }
                 else
@@ -80,12 +89,14 @@ namespace Cadastro.WebAPI.Controllers
             _context.Users.Add(user);
             try
             {
+                _logger.LogInformation(MyLogEvents.InsertItem, $"{DateTime.Now} - Adicionado o usuário de id: {user.Id}.");
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
                 if (UserExists(user.Id))
                 {
+                    _logger.LogWarning(MyLogEvents.PostUserConflict, $"{DateTime.Now} - [ERRO] Tentativa de Post: Usuário de id {user.Id} já existente.");
                     return Conflict();
                 }
                 else
@@ -104,10 +115,12 @@ namespace Cadastro.WebAPI.Controllers
             var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
+                _logger.LogWarning(MyLogEvents.DeleteItemNotFound, $"{DateTime.Now} - [ERRO] Tentativa de Delete: Usuário de id {id} não encontrado.");
                 return NotFound();
             }
 
             _context.Users.Remove(user);
+            _logger.LogInformation(MyLogEvents.DeleteItem, $"{DateTime.Now} - Removido o usuário de id: {id}");
             await _context.SaveChangesAsync();
 
             return user;
@@ -117,5 +130,6 @@ namespace Cadastro.WebAPI.Controllers
         {
             return _context.Users.Any(e => e.Id == id);
         }
+
     }
 }
