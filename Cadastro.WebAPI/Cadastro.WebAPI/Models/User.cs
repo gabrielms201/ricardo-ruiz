@@ -10,7 +10,6 @@ namespace Cadastro.WebAPI.Models
 	public class User
 	{
 		
-		[Key]
 		public string Id { get; private set; }
 		[Required(ErrorMessage = "Esse campo é obrigatório!")]
 		public string FirstName { get; set; }

@@ -54,12 +54,15 @@ namespace Cadastro.WebAPI.Controllers
         public async Task<IActionResult> PutUser(string id, User user)
         {
             user.SetId(id);
+
             if (id != user.Id)
             {
                 return BadRequest();
             }
 
             _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(user).Property(x => x.CreationDate).IsModified = false;
+            _context.Entry(user).Property(x => x.Id).IsModified = false;
             try
             {
                 _logger.LogInformation(MyLogEvents.UpdateItem, $"{DateTime.Now} - Modificado o usuário de id: {id}.");
@@ -130,6 +133,5 @@ namespace Cadastro.WebAPI.Controllers
         {
             return _context.Users.Any(e => e.Id == id);
         }
-
     }
 }
