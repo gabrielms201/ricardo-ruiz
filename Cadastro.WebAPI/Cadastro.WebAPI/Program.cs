@@ -19,8 +19,15 @@ namespace Cadastro.WebAPI
 
 		public static IHostBuilder CreateHostBuilder(string[] args) =>
 			Host.CreateDefaultBuilder(args)
+				.ConfigureLogging(logging => 
+				{
+					logging.ClearProviders();
+					logging.AddConsole();
+					logging.AddDebug();
+				})
 				.ConfigureWebHostDefaults(webBuilder =>
 				{
+					webBuilder.UseUrls("http://*:80");
 					webBuilder.UseStartup<Startup>();
 				});
 	}

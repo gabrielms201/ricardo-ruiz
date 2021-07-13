@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Cadastro.WebAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Cadastro.WebAPI.Services;
 
 namespace Cadastro.WebAPI
 {
@@ -29,8 +30,16 @@ namespace Cadastro.WebAPI
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			string mySqlConnection = Configuration.GetConnectionString("UserContext");
-			services.AddDbContextPool<UserContext>(options => options.UseSqlServer(Configuration.GetConnectionString("UserContext")));
+			var server = Configuration["DbServer"] ?? "ms-sql-server";
+			var port = Configuration["DbPort"] ?? "1433";
+			var user = Configuration["DbUser"] ?? "sa";
+			var password = Configuration["Password"] ?? "Sa123456";
+			var database = Configuration["Database"] ?? "RegisterApp";
+
+			// without docker -> string mySqlConnection = Configuration.GetConnectionString("UserContext");
+			string mySqlConnection = $"Server={server}, {port};Initial Catalog={database}; User ={user}; Password={password}";
+			services.AddDbContextPool<UserContext>(options => 
+				options.UseSqlServer(mySqlConnection));
 			services.AddControllers();
 			services.AddSwaggerGen(c =>
 			{
@@ -41,6 +50,7 @@ namespace Cadastro.WebAPI
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			DbManagementService.MigrationInitialization(app);
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
