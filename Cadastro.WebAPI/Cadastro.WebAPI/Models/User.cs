@@ -16,7 +16,7 @@ namespace Cadastro.WebAPI.Models
 		public string Surname { get; set; }
 		[Required(ErrorMessage = "Esse campo é obrigatório!")]
 		[Range(1, int.MaxValue, ErrorMessage = "O valor deve ser maior que 0")]
-		public int Age { get; set; }
+		public int? Age { get; set; }
 		public DateTime CreationDate { get; private set; }
 		public User()
 		{
