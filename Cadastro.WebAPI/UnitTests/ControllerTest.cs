@@ -32,7 +32,7 @@ namespace Cadastro.WebAPI.Controllers
 			Assert.Equal("Faltaram campos obrigatórios para serem preenchidos.", emptyObrigatoryFields.Message);
 		}
 
-		[Fact] // Teste com o git por id
+		[Fact] // Teste com o get por id
 		public async Task TestGetAsync()
 		{
 			Exception nullUserId = await Assert.ThrowsAsync<Exception>(() => _usersController.GetUser(null));
