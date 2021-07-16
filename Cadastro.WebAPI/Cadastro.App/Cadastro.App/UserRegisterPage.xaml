@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="Cadastro.App.UserRegisterPage"
+	BackgroundColor="GhostWhite">
+<ContentPage.Content>
+		<StackLayout>
+			<Label Text="Cadastro de Usuário" HorizontalTextAlignment="Center" FontAttributes="Bold" Margin="32" FontSize="Title"/>
+			<Label Text="Digite o seu nome (obrigatório): " HorizontalTextAlignment="Center"/>
+			<Frame Margin="50,0,50,10" Padding="5">
+				<Entry
+					x:Name="firstName"
+					Placeholder="Nome" VerticalOptions="End">
+				</Entry>
+			</Frame>
+			<Label Text="Digite o seu sobrenome (opcional):" HorizontalTextAlignment="Center"/>
+			<Frame Margin ="50,0,50,10" Padding="5">
+				<Entry
+					x:Name="surname"
+					Placeholder="Sobrenome">
+				</Entry>
+			</Frame>
+			<Label Text="Digite a sua idade (obrigatório):" HorizontalTextAlignment="Center"/>
+			<Frame Margin ="50,0,50,10" Padding="5">
+				<Entry
+					x:Name="age"
+					Placeholder="Idade">
+				</Entry>
+			</Frame>
+			<Button
+				Padding="5"
+				Margin="100,225"
+				Text="Enviar Cadastro"
+				Pressed="SendRegister">
+			</Button>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

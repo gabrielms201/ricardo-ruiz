@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="Cadastro.App.MainPage"
+	BackgroundColor="GhostWhite">
+	<!--Page Layout-->
+	<StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+		<Label
+			Text="Bem vindo ao aplicativo de cadastro"
+			TextColor="Black"
+			FontSize="Body"
+			FontAttributes="None">
+		</Label>
+		<Button
+			Text="Realizar Cadastro"
+			FontAttributes="Bold"
+			FontSize="Title"
+			BackgroundColor="#bfbfbf"
+			Clicked="OpenUserRegister">
+		</Button>
+	</StackLayout>
+</ContentPage>
