@@ -30,9 +30,9 @@
 			</Frame>
 			<Button
 				Padding="5"
-				Margin="100,225"
+				Margin="100,10"
 				Text="Enviar Cadastro"
-				Pressed="SendRegister">
+				Pressed="Button_Pressed">
 			</Button>
 		</StackLayout>
 	</ContentPage.Content>

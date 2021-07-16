@@ -12,6 +12,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cadastro.App.Android", "Cadastro.App\Cadastro.App.Android\Cadastro.App.Android.csproj", "{26D5D703-5069-4FAF-92B8-31098FA8916D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cadastro.App", "Cadastro.App\Cadastro.App\Cadastro.App.csproj", "{F5EF14C6-BDCB-4D86-A5A3-F936B3E53631}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1B683D2E-0E96-4C88-B016-199F676187DF} = {1B683D2E-0E96-4C88-B016-199F676187DF}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
