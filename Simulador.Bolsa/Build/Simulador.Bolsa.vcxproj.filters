@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa\Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{C82170A4-3102-30CF-818E-7EF8B8D292B1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

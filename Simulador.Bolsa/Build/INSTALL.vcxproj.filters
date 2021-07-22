@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa\Build\CMakeFiles\2b6da216ac62115b768e7f71ad50c898\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{6D827D84-DF32-361C-92D6-71A23EAD54A2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
