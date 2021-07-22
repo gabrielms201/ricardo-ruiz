@@ -1,1 +1,1 @@
-G:/Microsoft Visual Studio/2019/Community/MSBuild/Microsoft/VC/v160
+C:/Program Files (x86)/MSBuild/Microsoft.Cpp/v4.0/V140

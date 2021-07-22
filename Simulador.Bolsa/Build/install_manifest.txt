@@ -1,2 +1,0 @@
-C:/Program Files (x86)/Simulador.Bolsa/bin/Simulador.Bolsa.exe
-C:/Program Files (x86)/Simulador.Bolsa/src/Application.cpp
