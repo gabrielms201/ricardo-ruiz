@@ -46,6 +46,7 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/src" TYPE FILE FILES
+    "C:/Users/Ricar/temp/ricardo-ruiz/Simulador.Bolsa/Simulador.Bolsa.cpp"
     "C:/Users/Ricar/temp/ricardo-ruiz/Simulador.Bolsa/Application.cpp"
     "C:/Users/Ricar/temp/ricardo-ruiz/Simulador.Bolsa/Application.h"
     "C:/Users/Ricar/temp/ricardo-ruiz/Simulador.Bolsa/Ui.cpp"
