@@ -20,7 +20,6 @@ install(FILES
 			"Order.h"
 		DESTINATION src)   # <-> /src
 
-
 target_link_directories("${PROJECT_NAME}" PRIVATE "lib")
 target_link_libraries("${PROJECT_NAME}" PRIVATE "quickfix")
 target_include_directories("${PROJECT_NAME}" PRIVATE "quickfix")

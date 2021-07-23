@@ -3,7 +3,7 @@
 #include "quickfix/Session.h"
 #include "quickfix/config-all.h"
 #include "quickfix/fix42/ExecutionReport.h"
-
+#include ""
 
 
 
@@ -56,7 +56,6 @@ void Application::onMessage(const FIX42::NewOrderSingle& message, const FIX::Ses
 	message.get(price);
 	message.get(orderQty);
 	message.get(timeInForce);
-
 
 }
 
