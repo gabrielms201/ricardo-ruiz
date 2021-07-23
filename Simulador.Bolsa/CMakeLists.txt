@@ -7,7 +7,8 @@ add_executable("${PROJECT_NAME}"
 			"Application.cpp" 
 			"Application.h"
 			"Ui.cpp"
-			"Ui.h")
+			"Ui.h"
+			"Order.h")
 
 install(TARGETS "${PROJECT_NAME}" DESTINATION bin) # <-> /bin
 install(FILES 
@@ -16,6 +17,7 @@ install(FILES
 			"Application.h" 
 			"Ui.cpp"
 			"Ui.h"
+			"Order.h"
 		DESTINATION src)   # <-> /src
 
 
