@@ -8,7 +8,8 @@ add_executable("${PROJECT_NAME}"
 			"Application.h"
 			"Ui.cpp"
 			"Ui.h"
-			"Order.h")
+			"Order.h"
+			"OrderService.h")
 
 install(TARGETS "${PROJECT_NAME}" DESTINATION bin) # <-> /bin
 install(FILES 
@@ -18,6 +19,7 @@ install(FILES
 			"Ui.cpp"
 			"Ui.h"
 			"Order.h"
+			"OrderService.h"
 		DESTINATION src)   # <-> /src
 
 target_link_directories("${PROJECT_NAME}" PRIVATE "lib")

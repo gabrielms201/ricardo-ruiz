@@ -16,6 +16,7 @@ public:
 		_type = type;
 		_price = price;
 		_quantity = quantity;
+		_totalPrice = _quantity * _price;
 	}
 
 	// get properties
