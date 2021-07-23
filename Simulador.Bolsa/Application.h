@@ -23,4 +23,7 @@ class Application : public FIX::Application, FIX::MessageCracker
     void onMessage(const FIX42::NewOrderSingle&, const FIX::SessionID&);
     void onMessage(const FIX42::OrderCancelRequest&, const FIX::SessionID&);
     void onMessage(const FIX42::MarketDataRequest&, const FIX::SessionID&);
+
+
+
 };

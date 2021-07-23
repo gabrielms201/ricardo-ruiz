@@ -4,6 +4,8 @@
 #include "quickfix/config-all.h"
 #include "quickfix/fix42/ExecutionReport.h"
 #include "Order.h"
+#include <queue>
+
 
 
 
@@ -57,6 +59,8 @@ void Application::onMessage(const FIX42::NewOrderSingle& message, const FIX::Ses
 	message.get(orderQty);
 	message.get(timeInForce);
 
+	// Create Order:
+	Order order(senderCompID, targetCompID, symbol, clOrdID, side, ordType, price, orderQty);
 }
 
 void Application::onMessage(const FIX42::OrderCancelRequest&, const FIX::SessionID&) // Order cancel request message
@@ -65,4 +69,13 @@ void Application::onMessage(const FIX42::OrderCancelRequest&, const FIX::Session
 
 void Application::onMessage(const FIX42::MarketDataRequest&, const FIX::SessionID&) // MakertData request message
 {
+}
+
+static std::string generateID()
+{
+	int max = 9000;
+	int min = 1001;
+	srand(time(NULL));
+	int id = rand() % max + min - 1;
+	return(std::to_string(id));
 }
