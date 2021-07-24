@@ -10,7 +10,7 @@
 
 class Application : public FIX::Application, FIX::MessageCracker
 {
-    // Overloads of application's virtual functions
+    // Overloads of application's virtual functionsimplementations
     void onCreate(const FIX::SessionID&);
     void onLogon(const FIX::SessionID&);
     void onLogout(const FIX::SessionID&);
@@ -19,11 +19,12 @@ class Application : public FIX::Application, FIX::MessageCracker
     void fromAdmin(const FIX::Message&, const FIX::SessionID&);
     void fromApp(const FIX::Message&, const FIX::SessionID&);
 
-    // Overloads of MessageCracker's virtual functions
+    // Overloads of MessageCracker's virtual functions implementations
     void onMessage(const FIX42::NewOrderSingle&, const FIX::SessionID&);
     void onMessage(const FIX42::OrderCancelRequest&, const FIX::SessionID&);
     void onMessage(const FIX42::MarketDataRequest&, const FIX::SessionID&);
 
-
+    //Order features
+    void sendOrder(const Order&);
 
 };

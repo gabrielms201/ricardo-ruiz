@@ -25,6 +25,7 @@ int main(int argc, char** argv)
 		acceptor.start();
 		while (true)
 		{
+
 		}
 		acceptor.stop();
 		return 0;

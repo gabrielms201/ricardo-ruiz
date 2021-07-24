@@ -10,6 +10,12 @@
     <ClCompile Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa\Ui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa\OrderRepository.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa\OrderService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa\Application.h">
@@ -19,6 +25,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa\Order.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa\OrderRepository.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa\OrderService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

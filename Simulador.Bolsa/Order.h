@@ -1,11 +1,11 @@
 #pragma once
+//includes
 #include <string>
 #include <iostream>
 
 class Order
 {
 public:
-
 	Order(const std::string& owner, const std::string& target, const std::string& symbol, const std::string& clientID , char side, char type, double price, double quantity)
 	{
 		_owner = owner;
@@ -16,25 +16,25 @@ public:
 		_type = type;
 		_price = price;
 		_quantity = quantity;
-		_totalPrice = _quantity * _price;
 	}
 
 	// get properties
-	const std::string& getOwner() { return _owner; }
-	const std::string& getTarget() { return _target; }
-	const std::string& getSymbol() { return _symbol; }
-	const std::string& getClientID() { return _clientID; }
-	const char getSide() { return _side; }
-	const char getType() { return _type; }
-	const double getPrice() { return _price; }
-	const int getQuantity() { return _quantity; }
-	const double getTotalPrice() { return _totalPrice; }
+	const std::string& getOwner() const { return _owner; }
+	const std::string& getTarget() const { return _target; }
+	const std::string& getSymbol() const { return _symbol; }
+	const std::string& getClientID() const { return _clientID; }
+	char getSide() const { return _side; }
+	char getType() const { return _type; }
+	double getPrice() const { return _price; }
+	int getQuantity() const { return _quantity; }
+	double getTotalPrice() const { return _totalPrice; }
 
 	// methods
-	void executeOrder()
+	void sendTotalPrice(double price, double quantity) 
 	{
-		_totalPrice = _quantity * _price;
+		_totalPrice = quantity * price;
 	}
+
 
 private:
 	std::string _owner; // sender 

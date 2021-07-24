@@ -1,5 +1,4 @@
-﻿#pragma once
-#include "Ui.h"
+﻿#include "Ui.h"
 
 using namespace std;
 void Ui::ShowUi()

@@ -4,10 +4,6 @@
 #include "quickfix/config-all.h"
 #include "quickfix/fix42/ExecutionReport.h"
 #include "Order.h"
-#include <queue>
-
-
-
 
 void Application::onCreate(const FIX::SessionID&) {}
 
@@ -35,7 +31,7 @@ void Application::fromApp(const FIX::Message& message, const FIX::SessionID& ses
 
 void Application::onMessage(const FIX42::NewOrderSingle& message, const FIX::SessionID&) // New order message
 {
-	// Fix NewOrder class instances:
+	// Fix NewOrderSingle class instances:
 	// (https://www.onixs.biz/fix-dictionary/4.2)
 	FIX::SenderCompID senderCompID;		// Sender ID
 	FIX::TargetCompID targetCompID;		// Target ID
@@ -61,6 +57,9 @@ void Application::onMessage(const FIX42::NewOrderSingle& message, const FIX::Ses
 
 	// Create Order:
 	Order order(senderCompID, targetCompID, symbol, clOrdID, side, ordType, price, orderQty);
+
+	// Send order to repository
+	sendOrder(order);
 }
 
 void Application::onMessage(const FIX42::OrderCancelRequest&, const FIX::SessionID&) // Order cancel request message
@@ -71,11 +70,8 @@ void Application::onMessage(const FIX42::MarketDataRequest&, const FIX::SessionI
 {
 }
 
-static std::string generateID()
+void Application::sendOrder(const Order& order)
 {
-	int max = 9000;
-	int min = 1001;
-	srand(time(NULL));
-	int id = rand() % max + min - 1;
-	return(std::to_string(id));
 }
+
+

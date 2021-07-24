@@ -1,4 +1,5 @@
 #pragma once
+//includes
 #include <iostream>
 #include <locale.h>  
 class Ui

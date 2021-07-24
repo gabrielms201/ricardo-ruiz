@@ -9,7 +9,11 @@ add_executable("${PROJECT_NAME}"
 			"Ui.cpp"
 			"Ui.h"
 			"Order.h"
-			"OrderService.h")
+			"OrderRepository.cpp"
+			"OrderRepository.h"
+			"OrderService.cpp"
+			"OrderService.h"
+			)
 
 install(TARGETS "${PROJECT_NAME}" DESTINATION bin) # <-> /bin
 install(FILES 
@@ -19,8 +23,11 @@ install(FILES
 			"Ui.cpp"
 			"Ui.h"
 			"Order.h"
+			"OrderRepository.cpp"
+			"OrderRepository.h"
+			"OrderService.cpp"
 			"OrderService.h"
-		DESTINATION src)   # <-> /src
+		DESTINATION src)							# <-> /src
 
 target_link_directories("${PROJECT_NAME}" PRIVATE "lib")
 target_link_libraries("${PROJECT_NAME}" PRIVATE "quickfix")
