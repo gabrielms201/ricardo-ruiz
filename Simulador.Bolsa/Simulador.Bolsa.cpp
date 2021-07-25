@@ -10,12 +10,13 @@ int main(int argc, char** argv)
 {
 	try
 	{
-		if (argc != 2)
-		{
-			std::cout << "Por favor, utilizar o arquivo .bat no diretorio principal";
-			return 0;
-		}
-		std::string fileName = argv[1];
+		// Remover comments apenas após a produção
+		//if (argc != 2)
+		//{
+			//std::cout << "Por favor, utilizar o arquivo .bat no diretorio principal";
+			//return 0;
+		//}
+		std::string fileName = "C:\\Users\\Ricar\\temp\\ricardo-ruiz\\Simulador.Bolsa\\Simulador.Bolsa.cfg"; //argv[1];
 		Application application;
 		FIX::SessionSettings settings(fileName);
 		FIX::FileStoreFactory storeFactory(settings);

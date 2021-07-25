@@ -94,7 +94,7 @@
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <UseFullPaths>false</UseFullPaths>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
@@ -313,7 +313,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa\Order.h" />
     <ClCompile Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa\OrderRepository.cpp" />
     <ClInclude Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa\OrderRepository.h" />
-    <ClCompile Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa\OrderService.cpp" />
     <ClInclude Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa\OrderService.h" />
   </ItemGroup>
   <ItemGroup>

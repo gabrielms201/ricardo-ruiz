@@ -1,12 +1,15 @@
 #pragma once
 // includes 
 #include <SocketAcceptor.h>
+#include "OrderRepository.h"
 #include "quickfix/MessageCracker.h"
+#include "quickfix/Values.h"
+#include "quickfix/Utility.h"
+#include "quickfix/Mutex.h"
 #include "quickfix/Application.h"
 #include "quickfix/fix42/NewOrderSingle.h"
 #include "quickfix/fix42/OrderCancelRequest.h"
 #include "quickfix/fix42/MarketDataRequest.h"
-#include "quickfix/fix43/MarketDataRequest.h"
 
 class Application : public FIX::Application, FIX::MessageCracker
 {
@@ -27,4 +30,7 @@ class Application : public FIX::Application, FIX::MessageCracker
     //Order features
     void sendOrder(const Order&);
 
+public:
+    OrderRepository _repoController;
+    const OrderRepository& repo() { return _repoController; }
 };

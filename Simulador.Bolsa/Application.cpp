@@ -4,7 +4,12 @@
 #include "quickfix/config-all.h"
 #include "quickfix/fix42/ExecutionReport.h"
 #include "Order.h"
-
+#include "quickfix/Application.h"
+#include "quickfix/MessageCracker.h"
+#include "quickfix/Values.h"
+#include "quickfix/Utility.h"
+#include "quickfix/Mutex.h"
+int num = 0;
 void Application::onCreate(const FIX::SessionID&) {}
 
 void Application::onLogon(const FIX::SessionID&) {}
@@ -57,9 +62,9 @@ void Application::onMessage(const FIX42::NewOrderSingle& message, const FIX::Ses
 
 	// Create Order:
 	Order order(senderCompID, targetCompID, symbol, clOrdID, side, ordType, price, orderQty);
-
 	// Send order to repository
 	sendOrder(order);
+
 }
 
 void Application::onMessage(const FIX42::OrderCancelRequest&, const FIX::SessionID&) // Order cancel request message
@@ -69,9 +74,30 @@ void Application::onMessage(const FIX42::OrderCancelRequest&, const FIX::Session
 void Application::onMessage(const FIX42::MarketDataRequest&, const FIX::SessionID&) // MakertData request message
 {
 }
-
 void Application::sendOrder(const Order& order)
 {
+	if (_repoController.addOrder(order)) 
+	{
+		std::queue<Order> orders;
+		_repoController.matchOrder(orders);
+		num += 1;
+		FIX42::ExecutionReport report
+		(
+			FIX::OrderID(order.getClientID()),
+			FIX::ExecID(std::to_string(num)),
+			FIX::ExecTransType('0'),
+			FIX::ExecType('0'),
+			FIX::OrdStatus('0'),
+			FIX::Symbol(order.getSymbol()),
+			FIX::Side(order.getSide()),
+			FIX::LeavesQty(order.getTotalPrice()),
+			FIX::CumQty(order.getTotalPrice()),
+			FIX::AvgPx(order.getTotalPrice())
+		);
+		
+		FIX::Session::sendToTarget(report, FIX::SenderCompID(order.getTarget()), FIX::TargetCompID(order.getOwner()));
+	}
+	
 }
 
 

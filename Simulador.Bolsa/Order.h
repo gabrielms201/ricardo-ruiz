@@ -26,7 +26,7 @@ public:
 	char getSide() const { return _side; }
 	char getType() const { return _type; }
 	double getPrice() const { return _price; }
-	int getQuantity() const { return _quantity; }
+	double getQuantity() const { return _quantity; }
 	double getTotalPrice() const { return _totalPrice; }
 
 	// methods

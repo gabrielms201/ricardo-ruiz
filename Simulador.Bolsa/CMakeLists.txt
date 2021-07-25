@@ -11,7 +11,6 @@ add_executable("${PROJECT_NAME}"
 			"Order.h"
 			"OrderRepository.cpp"
 			"OrderRepository.h"
-			"OrderService.cpp"
 			"OrderService.h"
 			)
 
@@ -25,7 +24,6 @@ install(FILES
 			"Order.h"
 			"OrderRepository.cpp"
 			"OrderRepository.h"
-			"OrderService.cpp"
 			"OrderService.h"
 		DESTINATION src)							# <-> /src
 

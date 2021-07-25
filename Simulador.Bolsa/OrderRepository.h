@@ -19,7 +19,7 @@ private:
 	typedef std::multimap <double, Order, std::greater <double> > BidOrder;	// Bid repo
 	typedef std::multimap <double, Order, std::less<double> > OfferOrder;	// Order/Ask repo
 
-	void matchOrder(Order& bid, Order& ask);		// match order algorithm	
+	void matchOrder(Order& bid, Order& ask);								// match order algorithm	
 
 	BidOrder _bidOrder;
 	OfferOrder _offerOrder;

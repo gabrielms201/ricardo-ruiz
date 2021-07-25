@@ -53,11 +53,11 @@ bool OrderRepository::matchOrder(std::queue<Order>& orders)
 {
 	while (true)
 	{
-		if (!_bidOrder.size())
+		if (!_bidOrder.size() || !_offerOrder.size())
 			return orders.size() != 0;
 
 		BidOrder::iterator iBid = _bidOrder.begin();
-		BidOrder::iterator iOffer = _bidOrder.begin();
+		OfferOrder::iterator iOffer = _offerOrder.begin();
 		if (iBid->second.getPrice() >= iOffer->second.getPrice())
 		{
 			Order& bid = (*iBid).second;
@@ -75,7 +75,7 @@ bool OrderRepository::matchOrder(std::queue<Order>& orders)
 void OrderRepository::matchOrder(Order& bid, Order& ask)
 {
 	double price = ask.getPrice();
-	long quantity = 0;
+	double quantity = 0;
 
 	if (bid.getQuantity() > ask.getQuantity())
 		quantity = ask.getQuantity();
