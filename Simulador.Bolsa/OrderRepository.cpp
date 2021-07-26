@@ -15,7 +15,6 @@ bool OrderRepository::addOrder(const Order& order)
 		return true;
 	}
 	else return false;
-
 }
 // Delete Order implementation
 bool OrderRepository::deleteOrder(const Order& order)
@@ -55,37 +54,34 @@ bool OrderRepository::matchOrder(std::queue<Order>& orders)
 	{
 		if (!_bidOrder.size() || !_offerOrder.size())
 			return orders.size() != 0;
-
 		BidOrder::iterator iBid = _bidOrder.begin();
 		OfferOrder::iterator iOffer = _offerOrder.begin();
 		if (iBid->second.getPrice() >= iOffer->second.getPrice())
 		{
 			Order& bid = (*iBid).second;
-			Order& ask = (*iOffer).second;
-
-			matchOrder(bid, ask);
+			Order& offer = (*iOffer).second;
+			matchOrder(bid, offer);
 			orders.push(bid);
-			orders.push(ask);
+			orders.push(offer);
 		}
 		else
 			return orders.size() != 0;
 	}
-
 }
-void OrderRepository::matchOrder(Order& bid, Order& ask)
+void OrderRepository::matchOrder(Order& bid, Order& offer)
 {
-	double price = ask.getPrice();
+	double price = offer.getPrice();
 	double quantity = 0;
 
-	if (bid.getQuantity() > ask.getQuantity())
-		quantity = ask.getQuantity();
+	if (bid.getQuantity() > offer.getQuantity())
+		quantity = offer.getQuantity();
 	else
 		quantity = bid.getQuantity();
 
-	bid.sendTotalPrice(price, quantity);
-	ask.sendTotalPrice(price, quantity);
+	bid.getTotalPrice();
+	offer.getTotalPrice();
 }
-//Find Order by id implementation
+// Find Order by id implementation
 Order& OrderRepository::findOrder(char side, std::string id)
 {
 	if (side == '1') // char 1 represents buying side
@@ -100,7 +96,7 @@ Order& OrderRepository::findOrder(char side, std::string id)
 			else throw new std::exception("Wasn't possible to find an order with the given id");
 		}
 	}
-	else if (side == '2')// char 1 represents selling side
+	else if (side == '2') // char 2 represents selling side
 	{
 		OfferOrder::iterator i;
 		for (i = _offerOrder.begin(); i != _offerOrder.end(); i++)
@@ -112,6 +108,5 @@ Order& OrderRepository::findOrder(char side, std::string id)
 			else throw new std::exception("Wasn't possible to find an order with the given id");
 		}
 	}
-	else throw new std::exception("The order side wasn't especified correctly (1 for buying/2 for selling)");
-
+	else throw new std::exception("The order side wasn't especified correctly (1 for buying / 2 for selling)");
 }

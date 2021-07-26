@@ -16,6 +16,8 @@ public:
 		_type = type;
 		_price = price;
 		_quantity = quantity;
+		_totalPrice = price * quantity;
+		_averagePrice = price / quantity;
 	}
 
 	// get properties
@@ -28,12 +30,9 @@ public:
 	double getPrice() const { return _price; }
 	double getQuantity() const { return _quantity; }
 	double getTotalPrice() const { return _totalPrice; }
+	double getAveragePrice() const { return _averagePrice; }
 
 	// methods
-	void sendTotalPrice(double price, double quantity) 
-	{
-		_totalPrice = quantity * price;
-	}
 
 
 private:
@@ -46,5 +45,6 @@ private:
 	double _price;
 	double _quantity;
 	double _totalPrice;
+	double _averagePrice;
 };
 

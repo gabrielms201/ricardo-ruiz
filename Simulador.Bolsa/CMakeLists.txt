@@ -6,12 +6,9 @@ add_executable("${PROJECT_NAME}"
 			"Simulador.Bolsa.cpp"
 			"Application.cpp" 
 			"Application.h"
-			"Ui.cpp"
-			"Ui.h"
 			"Order.h"
 			"OrderRepository.cpp"
 			"OrderRepository.h"
-			"OrderService.h"
 			)
 
 install(TARGETS "${PROJECT_NAME}" DESTINATION bin) # <-> /bin
@@ -19,12 +16,9 @@ install(FILES
 			"Simulador.Bolsa.cpp"
 			"Application.cpp"
 			"Application.h" 
-			"Ui.cpp"
-			"Ui.h"
 			"Order.h"
 			"OrderRepository.cpp"
 			"OrderRepository.h"
-			"OrderService.h"
 		DESTINATION src)							# <-> /src
 
 target_link_directories("${PROJECT_NAME}" PRIVATE "lib")

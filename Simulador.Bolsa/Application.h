@@ -25,10 +25,11 @@ class Application : public FIX::Application, FIX::MessageCracker
     // Overloads of MessageCracker's virtual functions implementations
     void onMessage(const FIX42::NewOrderSingle&, const FIX::SessionID&);
     void onMessage(const FIX42::OrderCancelRequest&, const FIX::SessionID&);
-    void onMessage(const FIX42::MarketDataRequest&, const FIX::SessionID&);
 
     //Order features
     void sendOrder(const Order&);
+    void refuseOrder(const Order&);
+    void cancelOrder(const char side,const std::string& id);
 
 public:
     OrderRepository _repoController;
