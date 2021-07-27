@@ -12,8 +12,7 @@ void Application::onLogout(const FIX::SessionID&) {}
 
 void Application::toAdmin(FIX::Message&, const FIX::SessionID&) {}
 
-void Application::toApp(FIX::Message& , const FIX::SessionID&) {
-}
+void Application::toApp(FIX::Message& message, const FIX::SessionID&) {}
 
 void Application::fromAdmin(const FIX::Message&, const FIX::SessionID&) {}
 
@@ -21,24 +20,26 @@ void Application::fromApp(const FIX::Message& message, const FIX::SessionID& ses
 {
 	crack(message, sessionID);
 }
-void Application::onMessage (const FIX42::ExecutionReport&, const FIX::SessionID&) {}
-void Application::onMessage (const FIX42::OrderCancelReject&, const FIX::SessionID&) {}
+void Application::onMessage(const FIX42::ExecutionReport&, const FIX::SessionID&) {}
 
+void Application::onMessage(const FIX42::OrderCancelReject&, const FIX::SessionID&) {}
+
+// Client methods
 void Application::runClient()
 {
 	while (true)
 	{
 		char operation = mainMenu();
-		switch (operation) 
+		switch (operation)
 		{
-			case '1':
-				return addOrder();
-			case '2':
-				return deleteOrder();
-			case '3':
-				return listOrders();
-			case '4':
-				break;
+		case '1':
+			return addOrder();
+		case '2':
+			return deleteOrder();
+		case '3':
+			return listOrders();
+		case '4':
+			break;
 		}
 		break;
 	}
@@ -75,14 +76,13 @@ void Application::addOrder()
 	float quantityValue, priceValue;
 	std::string symbolValue;
 	// Input
-	std::cout << "Digite a quantidade:" << std::endl;
+	std::cout << "\nDigite a quantidade:";
 	std::cin >> quantityValue;
-	std::cout << "Digite o preco:" << std::endl;
+	std::cout << "Digite o preco:";
 	std::cin >> priceValue;
-	std::cout << "Digite o simbolo:" << std::endl;
+	std::cout << "Digite o simbolo:";
 	std::cin >> symbolValue;
 	//	Variables
-	ordID += 1;
 	FIX::SenderCompID senderID = "CLIENT1";
 	FIX::TargetCompID targetID = "SIMULADOR.ORDEM";
 	FIX::Symbol symbol = symbolValue;
@@ -100,27 +100,27 @@ void Application::addOrder()
 	order.set(quantity);
 	order.set(time);
 	FIX::Session::sendToTarget(order, senderID, targetID);
+	std::cout << "\nOrdem criada:\n>id: " << ordID << "\n> preco: " << price << "\n> quantidade: " << quantity << "\n> simbolo: " << symbol << std::endl;
+	ordID += 1;
 	runClient();
 }
 
 void Application::deleteOrder()
 {
-	cancelID += 2;
+	std::string idValue, symbolValue;
+	std::cout << "Digite o id da ordem que voce quer remover:";
+	std::cin >> idValue;
+	std::cout << "Digite o simbolo da ordem que voce quer remover:";
+	std::cin >> symbolValue;
 	FIX::SenderCompID senderID = "CLIENT1";
 	FIX::TargetCompID targetID = "SIMULADOR.ORDEM";
-	std::string idValue, symbolValue;
-	std::cout << "Digite o id da ordem que voce quer remover:" << std::endl;
-	std::cin >> idValue;
-	std::cout << "Digite o simbolo da ordem que voce quer remover:" << std::endl;
-	std::cin >> symbolValue;
-	FIX42::OrderCancelRequest orderCancel (idValue,std::to_string(cancelID), symbolValue,'1', FIX::TransactTime());
-	orderCancel.set(FIX::Text("Order cancel"));
+	FIX42::OrderCancelRequest orderCancel(FIX::OrigClOrdID(idValue), FIX::ClOrdID(std::to_string(ordID)), FIX::Symbol(symbolValue), FIX::Side('1'), FIX::TransactTime());
 	FIX::Session::sendToTarget(orderCancel, senderID, targetID);
+	std::cout << "Ordem cancelada!\nId da ordem de cancelamento gerada: " << ordID;
+	ordID += 1;
 	runClient();
 }
 
-void Application::listOrders()
-{
-}
+void Application::listOrders() {}
 
 

@@ -41,6 +41,5 @@ class Application : public FIX::Application, public FIX::MessageCracker
     // Public
 public:
     void runClient();
-    int ordID = 0;
-    int cancelID = 0;
+    int ordID = 1;
 };
