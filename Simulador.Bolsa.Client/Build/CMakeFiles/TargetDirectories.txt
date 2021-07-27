@@ -1,0 +1,4 @@
+C:/Users/Ricar/temp/ricardo-ruiz/Simulador.Bolsa.Client/Build/CMakeFiles/Simulador.Bolsa.Client.dir
+C:/Users/Ricar/temp/ricardo-ruiz/Simulador.Bolsa.Client/Build/CMakeFiles/INSTALL.dir
+C:/Users/Ricar/temp/ricardo-ruiz/Simulador.Bolsa.Client/Build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Ricar/temp/ricardo-ruiz/Simulador.Bolsa.Client/Build/CMakeFiles/ZERO_CHECK.dir

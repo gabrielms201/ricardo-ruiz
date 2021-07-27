@@ -39,9 +39,9 @@ void Application::onMessage(const FIX42::NewOrderSingle& message, const FIX::Ses
 	FIX::Side side;						// Order side
 	FIX::OrdType ordType;				// Order type
 	FIX::Price price;					// Order price
-	FIX::OrderQty orderQty;				// Order quantity 
+	FIX::OrderQty orderQty;				// Order quantity
 	FIX::TimeInForce timeInForce		// Specifies how long the order remains in effect
-	(FIX::TimeInForce_DAY);				// Time in force Spec
+	('0');				// Time in force Spec
 	// Message get methods
 	message.getHeader().get(senderCompID);
 	message.getHeader().get(targetCompID);
@@ -134,4 +134,3 @@ void Application::cancelOrder(const char side, const std::string& id)
 	FIX::Session::sendToTarget(report, FIX::SenderCompID(order.getTarget()), FIX::TargetCompID(order.getOwner()));
 	_repoController.deleteOrder(order);
 }
-
