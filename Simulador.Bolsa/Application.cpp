@@ -98,7 +98,7 @@ void Application::sendOrder(const Order& order)
 }
 void Application::refuseOrder(const Order& order)
 {
-	execId += 1;
+	execId += 2;
 	FIX42::ExecutionReport report
 	(
 		FIX::OrderID(order.getClientID()),
@@ -110,17 +110,17 @@ void Application::refuseOrder(const Order& order)
 		FIX::Side(order.getSide()),
 		FIX::LeavesQty(order.getTotalPrice()),
 		FIX::CumQty(order.getTotalPrice()),
-		FIX::AvgPx(order.getTotalPrice())
+		FIX::AvgPx(order.getAveragePrice())
 	);
 	FIX::Session::sendToTarget(report, FIX::SenderCompID(order.getTarget()), FIX::TargetCompID(order.getOwner()));
 }
 void Application::cancelOrder(const char side, const std::string& id)
 {
 	Order& order = _repoController.findOrder(side, id);
-	execId += 1;
+	execId += 3;
 	FIX42::ExecutionReport report
 	(
-		FIX::OrderID(order.getClientID()),
+		FIX::OrderID(id),
 		FIX::ExecID(std::to_string(execId)),
 		FIX::ExecTransType('4'),						// char 4 = (canceled) status
 		FIX::ExecType('4'),
@@ -129,7 +129,7 @@ void Application::cancelOrder(const char side, const std::string& id)
 		FIX::Side(order.getSide()),
 		FIX::LeavesQty(order.getTotalPrice()),
 		FIX::CumQty(order.getTotalPrice()),
-		FIX::AvgPx(order.getTotalPrice())
+		FIX::AvgPx(order.getAveragePrice())
 	);
 	FIX::Session::sendToTarget(report, FIX::SenderCompID(order.getTarget()), FIX::TargetCompID(order.getOwner()));
 	_repoController.deleteOrder(order);
