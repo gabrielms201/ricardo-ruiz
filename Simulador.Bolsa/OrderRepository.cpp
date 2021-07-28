@@ -28,6 +28,7 @@ bool OrderRepository::deleteOrder(const Order& order)
 			if ((*i).second.getClientID() == id)
 			{
 				_bidOrder.erase(i);
+				return true;
 			}
 			else return false;
 		}
@@ -58,7 +59,7 @@ bool OrderRepository::matchOrder(std::queue<Order>& orders)
 		OfferOrder::iterator iOffer = _offerOrder.begin();
 		if (iBid->second.getPrice() >= iOffer->second.getPrice())
 		{
-			Order& bid = (*iBid).second;
+			Order & bid = (*iBid).second;
 			Order& offer = (*iOffer).second;
 			matchOrder(bid, offer);
 			orders.push(bid);
@@ -87,26 +88,25 @@ Order& OrderRepository::findOrder(char side, std::string id)
 	if (side == '1') // char 1 represents buying side
 	{
 		BidOrder::iterator i;
-		for (i = _bidOrder.begin(); i != _bidOrder.end(); i++)
+		for (i = _bidOrder.begin(); i != _bidOrder.end(); ++i)
 		{
 			if ((*i).second.getClientID() == id)
 			{
 				return (*i).second;
 			}
-			else throw new std::exception("Wasn't possible to find an order with the given id");
+			
 		}
 	}
 	else if (side == '2') // char 2 represents selling side
 	{
 		OfferOrder::iterator i;
-		for (i = _offerOrder.begin(); i != _offerOrder.end(); i++)
+		for (i = _offerOrder.begin(); i != _offerOrder.end(); ++i)
 		{
 			if ((*i).second.getClientID() == id)
 			{
 				return (*i).second;
 			}
-			else throw new std::exception("Wasn't possible to find an order with the given id");
 		}
 	}
-	else throw new std::exception("The order side wasn't especified correctly (1 for buying / 2 for selling)");
+	else throw new std::exception("Wasn't possible to find an order with the given id");
 }

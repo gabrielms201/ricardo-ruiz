@@ -39,9 +39,9 @@ void Application::onMessage(const FIX42::NewOrderSingle& message, const FIX::Ses
 	FIX::Side side;						// Order side
 	FIX::OrdType ordType;				// Order type
 	FIX::Price price;					// Order price
-	FIX::OrderQty orderQty;				// Order quantity 
+	FIX::OrderQty orderQty;				// Order quantity
 	FIX::TimeInForce timeInForce		// Specifies how long the order remains in effect
-	(FIX::TimeInForce_DAY);				// Time in force Spec
+	('0');				// Time in force Spec
 	// Message get methods
 	message.getHeader().get(senderCompID);
 	message.getHeader().get(targetCompID);
@@ -92,46 +92,51 @@ void Application::sendOrder(const Order& order)
 			FIX::CumQty(order.getTotalPrice()),
 			FIX::AvgPx(order.getAveragePrice())
 		);
+		report.set(FIX::Text("Execution report: a new order has been added"));
+		report.set(FIX::Price(order.getPrice()));
+		report.set(FIX::OrderQty(order.getQuantity()));
+		report.set(FIX::ClOrdID(order.getClientID()));
 		FIX::Session::sendToTarget(report, FIX::SenderCompID(order.getTarget()), FIX::TargetCompID(order.getOwner()));
 	}
 	else refuseOrder(order);
 }
 void Application::refuseOrder(const Order& order)
 {
-	execId += 1;
+	execId += 2;
 	FIX42::ExecutionReport report
 	(
 		FIX::OrderID(order.getClientID()),
 		FIX::ExecID(std::to_string(execId)),
-		FIX::ExecTransType('8'),						// char 8 = (refused) status
+		FIX::ExecTransType('3'),						// char 8 = (refused) status
 		FIX::ExecType('8'),
 		FIX::OrdStatus('8'),
 		FIX::Symbol(order.getSymbol()),
 		FIX::Side(order.getSide()),
 		FIX::LeavesQty(order.getTotalPrice()),
 		FIX::CumQty(order.getTotalPrice()),
-		FIX::AvgPx(order.getTotalPrice())
+		FIX::AvgPx(order.getAveragePrice())
 	);
+	report.set(FIX::Text("Execution report: an order has been refused!"));
 	FIX::Session::sendToTarget(report, FIX::SenderCompID(order.getTarget()), FIX::TargetCompID(order.getOwner()));
 }
 void Application::cancelOrder(const char side, const std::string& id)
 {
 	Order& order = _repoController.findOrder(side, id);
-	execId += 1;
+	execId += 3;
 	FIX42::ExecutionReport report
 	(
-		FIX::OrderID(order.getClientID()),
+		FIX::OrderID(id),
 		FIX::ExecID(std::to_string(execId)),
-		FIX::ExecTransType('4'),						// char 4 = (canceled) status
+		FIX::ExecTransType('1'),						// char 4 = (canceled) status
 		FIX::ExecType('4'),
 		FIX::OrdStatus('4'),
 		FIX::Symbol(order.getSymbol()),
 		FIX::Side(order.getSide()),
 		FIX::LeavesQty(order.getTotalPrice()),
 		FIX::CumQty(order.getTotalPrice()),
-		FIX::AvgPx(order.getTotalPrice())
+		FIX::AvgPx(order.getAveragePrice())
 	);
+	report.set(FIX::Text("Execution report: an order has been canceled!"));
 	FIX::Session::sendToTarget(report, FIX::SenderCompID(order.getTarget()), FIX::TargetCompID(order.getOwner()));
 	_repoController.deleteOrder(order);
 }
-
