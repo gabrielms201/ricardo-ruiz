@@ -92,6 +92,10 @@ void Application::sendOrder(const Order& order)
 			FIX::CumQty(order.getTotalPrice()),
 			FIX::AvgPx(order.getAveragePrice())
 		);
+		report.set(FIX::Text("Execution report: a new order has been added"));
+		report.set(FIX::Price(order.getPrice()));
+		report.set(FIX::OrderQty(order.getQuantity()));
+		report.set(FIX::ClOrdID(order.getClientID()));
 		FIX::Session::sendToTarget(report, FIX::SenderCompID(order.getTarget()), FIX::TargetCompID(order.getOwner()));
 	}
 	else refuseOrder(order);
@@ -103,7 +107,7 @@ void Application::refuseOrder(const Order& order)
 	(
 		FIX::OrderID(order.getClientID()),
 		FIX::ExecID(std::to_string(execId)),
-		FIX::ExecTransType('8'),						// char 8 = (refused) status
+		FIX::ExecTransType('3'),						// char 8 = (refused) status
 		FIX::ExecType('8'),
 		FIX::OrdStatus('8'),
 		FIX::Symbol(order.getSymbol()),
@@ -112,6 +116,7 @@ void Application::refuseOrder(const Order& order)
 		FIX::CumQty(order.getTotalPrice()),
 		FIX::AvgPx(order.getAveragePrice())
 	);
+	report.set(FIX::Text("Execution report: an order has been refused!"));
 	FIX::Session::sendToTarget(report, FIX::SenderCompID(order.getTarget()), FIX::TargetCompID(order.getOwner()));
 }
 void Application::cancelOrder(const char side, const std::string& id)
@@ -122,7 +127,7 @@ void Application::cancelOrder(const char side, const std::string& id)
 	(
 		FIX::OrderID(id),
 		FIX::ExecID(std::to_string(execId)),
-		FIX::ExecTransType('4'),						// char 4 = (canceled) status
+		FIX::ExecTransType('1'),						// char 4 = (canceled) status
 		FIX::ExecType('4'),
 		FIX::OrdStatus('4'),
 		FIX::Symbol(order.getSymbol()),
@@ -131,6 +136,7 @@ void Application::cancelOrder(const char side, const std::string& id)
 		FIX::CumQty(order.getTotalPrice()),
 		FIX::AvgPx(order.getAveragePrice())
 	);
+	report.set(FIX::Text("Execution report: an order has been canceled!"));
 	FIX::Session::sendToTarget(report, FIX::SenderCompID(order.getTarget()), FIX::TargetCompID(order.getOwner()));
 	_repoController.deleteOrder(order);
 }

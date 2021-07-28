@@ -308,6 +308,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa.Client\Simulador.Bolsa.Client.cpp" />
     <ClCompile Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa.Client\Application.cpp" />
     <ClInclude Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa.Client\Application.h" />
+    <ClCompile Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa.Client\Repo.cpp" />
+    <ClInclude Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa.Client\Repo.h" />
+    <ClInclude Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa.Client\Order.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa.Client\Build\ZERO_CHECK.vcxproj">

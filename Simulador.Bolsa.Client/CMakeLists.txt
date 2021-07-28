@@ -6,6 +6,9 @@ add_executable("${PROJECT_NAME}"
 			"Simulador.Bolsa.Client.cpp"
 			"Application.cpp"
 			"Application.h"
+			"Repo.cpp"
+			"Repo.h"
+			"Order.h"
 			)
 
 install(TARGETS "${PROJECT_NAME}" DESTINATION bin) # <-> /bin
@@ -13,6 +16,9 @@ install(FILES
 			"Simulador.Bolsa.Client.cpp"
 			"Application.cpp"
 			"Application.h"
+			"Repo.cpp"
+			"Repo.h"
+			"Order.h"
 		DESTINATION src)							# <-> /src
 
 target_link_directories("${PROJECT_NAME}" PRIVATE "lib")

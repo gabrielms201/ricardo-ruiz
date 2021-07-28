@@ -7,9 +7,18 @@
     <ClCompile Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa.Client\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa.Client\Repo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa.Client\Application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa.Client\Repo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ricar\temp\ricardo-ruiz\Simulador.Bolsa.Client\Order.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

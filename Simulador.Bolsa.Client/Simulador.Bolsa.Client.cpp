@@ -18,13 +18,13 @@ int main(int argc, char** argv)
 {
 	try
 	{
-		//if (argc != 2)
-		//{
-			//std::cout << "Por favor, utilizar o arquivo .bat no diretorio principal";
-			//return 0;
-		//}f
+		if (argc != 2)
+		{
+			std::cout << "Por favor, utilizar o arquivo .bat no diretorio principal";
+			return 0;
+		}
 		Application application;
-		std::string fileName = "C:\\Users\\Ricar\\temp\\ricardo-ruiz\\Simulador.Bolsa.Client\\Simulador.Bolsa.Client.cfg";//argv[1];
+		std::string fileName = argv[1];
 		FIX::SessionSettings settings(fileName);
 		FIX::FileStoreFactory storeFactory(settings);
 		FIX::FileLogFactory logFactory(settings);

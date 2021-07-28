@@ -49,6 +49,9 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     "C:/Users/Ricar/temp/ricardo-ruiz/Simulador.Bolsa.Client/Simulador.Bolsa.Client.cpp"
     "C:/Users/Ricar/temp/ricardo-ruiz/Simulador.Bolsa.Client/Application.cpp"
     "C:/Users/Ricar/temp/ricardo-ruiz/Simulador.Bolsa.Client/Application.h"
+    "C:/Users/Ricar/temp/ricardo-ruiz/Simulador.Bolsa.Client/Repo.cpp"
+    "C:/Users/Ricar/temp/ricardo-ruiz/Simulador.Bolsa.Client/Repo.h"
+    "C:/Users/Ricar/temp/ricardo-ruiz/Simulador.Bolsa.Client/Order.h"
     )
 endif()
 

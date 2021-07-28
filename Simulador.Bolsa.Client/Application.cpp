@@ -2,7 +2,6 @@
 #include <iostream>
 #include "quickfix/MessageCracker.h"
 
-
 // FIX Setup
 void Application::onCreate(const FIX::SessionID&) {}
 
@@ -20,7 +19,30 @@ void Application::fromApp(const FIX::Message& message, const FIX::SessionID& ses
 {
 	crack(message, sessionID);
 }
-void Application::onMessage(const FIX42::ExecutionReport&, const FIX::SessionID&) {}
+void Application::onMessage(const FIX42::ExecutionReport& message, const FIX::SessionID&)
+{
+	if (message.get(FIX::Text()) == "Execution report: a new order has been added") 
+	{
+		FIX::OrderID ordID;
+		FIX::ClOrdID clOrdID;
+		FIX::Symbol symbol;
+		FIX::Price price;
+		FIX::OrderQty quantity;
+		FIX::CumQty totalPrice;
+		FIX::AvgPx averagePrice;
+
+		message.get(ordID);
+		message.get(clOrdID);
+		message.get(symbol);
+		message.get(price);
+		message.get(quantity);
+		message.get(totalPrice);
+		message.get(averagePrice);
+
+		Order order(ordID, symbol, price, quantity, totalPrice, averagePrice);
+		_repo.addOrder(order);
+	}
+}
 
 void Application::onMessage(const FIX42::OrderCancelReject&, const FIX::SessionID&) {}
 
@@ -98,9 +120,9 @@ void Application::addOrder()
 	FIX42::NewOrderSingle order(clOrdID, handlInst, symbol, side, FIX::TransactTime(), type);
 	order.set(price);
 	order.set(quantity);
-	order.set(time);
+	order.set(time);	
 	FIX::Session::sendToTarget(order, senderID, targetID);
-	std::cout << "\nOrdem criada:\n>id: " << ordID << "\n> preco: " << price << "\n> quantidade: " << quantity << "\n> simbolo: " << symbol << std::endl;
+	std::cout << "\nOrdem criada:\n> id: " << ordID << "\n> preco: " << price << "\n> quantidade: " << quantity << "\n> simbolo: " << symbol << std::endl;
 	ordID += 1;
 	runClient();
 }
@@ -114,13 +136,17 @@ void Application::deleteOrder()
 	std::cin >> symbolValue;
 	FIX::SenderCompID senderID = "CLIENT1";
 	FIX::TargetCompID targetID = "SIMULADOR.ORDEM";
-	FIX42::OrderCancelRequest orderCancel(FIX::OrigClOrdID(idValue), FIX::ClOrdID(std::to_string(ordID)), FIX::Symbol(symbolValue), FIX::Side('1'), FIX::TransactTime());
+	FIX42::OrderCancelRequest orderCancel(FIX::OrigClOrdID(idValue), FIX::ClOrdID(std::to_string(cancelOrdID)), FIX::Symbol(symbolValue), FIX::Side('1'), FIX::TransactTime());
+	orderCancel.set(FIX::Text("Order Cancel Request"));
 	FIX::Session::sendToTarget(orderCancel, senderID, targetID);
-	std::cout << "Ordem cancelada!\nId da ordem de cancelamento gerada: " << ordID;
-	ordID += 1;
+	std::cout << "Ordem cancelada!\nId da ordem de cancelamento gerada: " << cancelOrdID;
+	_repo.removeOrder(idValue);
+	cancelOrdID += 1;
 	runClient();
 }
 
-void Application::listOrders() {}
-
-
+void Application::listOrders() 
+{
+	_repo.printRepo();
+	runClient();
+}

@@ -1,5 +1,7 @@
 #pragma once
 // includes
+#include "Repo.h"
+#include "Order.h"
 #include <iostream>
 #include <SocketInitiator.h>
 #include <MessageCracker.h>
@@ -29,7 +31,7 @@ class Application : public FIX::Application, public FIX::MessageCracker
     void fromApp(const FIX::Message&, const FIX::SessionID&);
 
     void onMessage(const FIX42::ExecutionReport&, const FIX::SessionID&);
-    void onMessage(const FIX42::OrderCancelReject&, const FIX::SessionID& );
+    void onMessage(const FIX42::OrderCancelReject&, const FIX::SessionID&);
 
 
     // Client Methods
@@ -42,4 +44,7 @@ class Application : public FIX::Application, public FIX::MessageCracker
 public:
     void runClient();
     int ordID = 1;
+    int cancelOrdID = 1;
+private:
+    Repo _repo;
 };
