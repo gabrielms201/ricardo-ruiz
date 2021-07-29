@@ -2,7 +2,7 @@
 
 <b>1 -)</b> O primeiro projeto foi feito em c# utilizando ASPNET Core, Entity Framework e Xamarin. O projeto é um simples aplicativo que possibilita o usuário enviar os dados cadastrados para um banco de dados através de uma api.
 
-<b>2-)</b> O segundo projeto foi feito em c++ utilizando a biblioteca quickfix. O projeto possui duas partes: um cliente, e um servidor. Consiste em uma aplicação que simula o comportamento do envio/cancelamente/consulta de ordens (Seja de compra ou venda) de ativos da bolsa de valores utilizando do protocolo FIX.
+<b>2-)</b> O segundo projeto foi feito em c++ utilizando a biblioteca quickfix. O projeto possui duas partes: um cliente, e um servidor. Consiste em uma aplicação que simula o comportamento do envio/cancelamente/consulta de ordens (seja de compra ou venda) de ativos da bolsa de valores utilizando do protocolo FIX.
 
 
 <h1>Orientações sobre o projeto do simulador da bolsa de valores:</h1>
