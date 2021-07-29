@@ -30,6 +30,7 @@ void Application::onMessage(const FIX42::ExecutionReport& message, const FIX::Se
 		FIX::OrderQty quantity;
 		FIX::CumQty totalPrice;
 		FIX::AvgPx averagePrice;
+		FIX::Side side;
 
 		message.get(ordID);
 		message.get(clOrdID);
@@ -38,8 +39,9 @@ void Application::onMessage(const FIX42::ExecutionReport& message, const FIX::Se
 		message.get(quantity);
 		message.get(totalPrice);
 		message.get(averagePrice);
+		message.get(side);
 
-		Order order(ordID, symbol, price, quantity, totalPrice, averagePrice);
+		Order order(ordID, symbol, price, quantity, totalPrice, averagePrice, side);
 		_repo.addOrder(order);
 	}
 }
@@ -72,8 +74,8 @@ char Application::mainMenu()
 	std::cout
 		<< "\nBem vindo ao simulador de ordem de compras! O que voce deseja fazer?\n"
 		<< std::endl
-		<< "1-) Nova ordem de compra\n"
-		<< "2-) Cancelar ordem de compra\n"
+		<< "1-) Nova ordem\n"
+		<< "2-) Cancelar ordem\n"
 		<< "3-) Ver ordens\n"
 		<< "4-) Sair\n";
 	std::cin >> input;
@@ -97,6 +99,7 @@ void Application::addOrder()
 {
 	float quantityValue, priceValue;
 	std::string symbolValue;
+	char sideValue;
 	// Input
 	std::cout << "\nDigite a quantidade:";
 	std::cin >> quantityValue;
@@ -104,12 +107,14 @@ void Application::addOrder()
 	std::cin >> priceValue;
 	std::cout << "Digite o simbolo:";
 	std::cin >> symbolValue;
+	std::cout << "Digite o lado da ordem: (1 para compra / 2 para venda): ";
+	std::cin >> sideValue;
 	//	Variables
 	FIX::SenderCompID senderID = "CLIENT1";
 	FIX::TargetCompID targetID = "SIMULADOR.ORDEM";
 	FIX::Symbol symbol = symbolValue;
 	FIX::ClOrdID clOrdID = std::to_string(ordID);
-	FIX::Side side = '1';
+	FIX::Side side = sideValue;
 	FIX::OrdType type = '2';
 	FIX::Price price = priceValue;
 	FIX::OrderQty quantity = quantityValue;
@@ -122,7 +127,9 @@ void Application::addOrder()
 	order.set(quantity);
 	order.set(time);	
 	FIX::Session::sendToTarget(order, senderID, targetID);
-	std::cout << "\nOrdem criada:\n> id: " << ordID << "\n> preco: " << price << "\n> quantidade: " << quantity << "\n> simbolo: " << symbol << std::endl;
+	std::string sideText;
+	if (side == '1') sideText = "Compra"; else sideText = "Venda";
+	std::cout << "\nOrdem criada:\n> id: " << ordID << "\n> preco: " << price << "\n> quantidade: " << quantity << "\n> simbolo: " << symbol << "\n> lado: " << sideText << std::endl;
 	ordID += 1;
 	runClient();
 }
@@ -130,13 +137,16 @@ void Application::addOrder()
 void Application::deleteOrder()
 {
 	std::string idValue, symbolValue;
+	char side;
 	std::cout << "Digite o id da ordem que voce quer remover:";
 	std::cin >> idValue;
 	std::cout << "Digite o simbolo da ordem que voce quer remover:";
 	std::cin >> symbolValue;
 	FIX::SenderCompID senderID = "CLIENT1";
 	FIX::TargetCompID targetID = "SIMULADOR.ORDEM";
-	FIX42::OrderCancelRequest orderCancel(FIX::OrigClOrdID(idValue), FIX::ClOrdID(std::to_string(cancelOrdID)), FIX::Symbol(symbolValue), FIX::Side('1'), FIX::TransactTime());
+	std::cout << "Digite o lado da ordem: (1 para compra / 2 para venda): ";
+	std::cin >> side;
+	FIX42::OrderCancelRequest orderCancel(FIX::OrigClOrdID(idValue), FIX::ClOrdID(std::to_string(cancelOrdID)), FIX::Symbol(symbolValue), FIX::Side(side), FIX::TransactTime());
 	orderCancel.set(FIX::Text("Order Cancel Request"));
 	FIX::Session::sendToTarget(orderCancel, senderID, targetID);
 	std::cout << "Ordem cancelada!\nId da ordem de cancelamento gerada: " << cancelOrdID;

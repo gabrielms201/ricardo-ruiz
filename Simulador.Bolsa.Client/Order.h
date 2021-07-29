@@ -8,7 +8,7 @@ class Order
 	friend std::ostream& operator<<(std::ostream&, Order&);
 public:
 	//constructor
-	Order(const std::string& ordID, const std::string symbol, const double price, const double quantity, const double totalPrice, const double averagePrice)
+	Order(const std::string& ordID, const std::string symbol, const double price, const double quantity, const double totalPrice, const double averagePrice, char side)
 	{
 		_ordID = ordID;
 		_symbol = symbol;
@@ -16,6 +16,7 @@ public:
 		_quantity = quantity;
 		_totalPrice = totalPrice;
 		_averagePrice = averagePrice;
+		_side = side;
 	}
 	//get
 	std::string getOrdID() { return _ordID; }
@@ -24,6 +25,7 @@ public:
 	double getQuantity() { return _quantity; }
 	double getTotalPrice() { return _totalPrice; }
 	double getAveragePrice() { return _averagePrice; }
+	std::string getSide() { if (_side == '1') return "Compra"; else return "Venda"; }
 
 private:
 	//attributes
@@ -33,6 +35,7 @@ private:
 	double _quantity;
 	double _totalPrice;
 	double _averagePrice;
+	char _side;
 };
 
 inline std::ostream& operator<<(std::ostream& ostream, Order& order)
@@ -43,5 +46,6 @@ inline std::ostream& operator<<(std::ostream& ostream, Order& order)
 		<< "Order Price: " << order.getPrice() << std::endl
 		<< "Order Quantity: " << order.getQuantity() << std::endl
 		<< "Order Total Price: " << order.getTotalPrice() << std::endl
-		<< "Order Average Price: " << order.getAveragePrice() << std::endl;
+		<< "Order Average Price: " << order.getAveragePrice() << std::endl
+		<< "Order Side: " << order.getSide() << std::endl;
 }
